@@ -17,7 +17,8 @@ The PS5 also had supply chain issues during COVID when it was released, so while
 
 Another important thing to note. Each console was released in tandem with new games specifically designed to attract customer, called launch titles. We are assuming that the PS6 will launch with 20 launch titles, as each system previously was released with at least 12.
 
-<ins> ###Reasons for machine learning </ins>
+<ins> Reasons for machine learning </ins>
+
 Using basic mathematical models like linear regressions, polynomial regressions and even multiple regression models in realistic scenarios such as game console sales would not work for this case.
 
 Video game consoles, video games in general, face heavy competition within the industry and outside. Within, premium video games, that cost, compete with freemium games. Outside, video games compete with all forms of entertainment: movies, music, tv shows, reading, anything one can do in their free time is a substitute. 
