@@ -1,0 +1,72 @@
+import numpy as np
+import pandas as pd
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS1_Sales = pd.read_excel(file_location, sheet_name = 'PS1 Sales', header = 2, usecols ='D:F')  #Imported PS1 Sales Yearly, have to use spreadsheet to navigate parse
+
+fig,ax= plt.subplots(figsize = (10,5))
+ax.bar(PS1_Sales['Year'], PS1_Sales['Yearly Sales'], color = 'skyblue', label = 'Yearly Sales')
+ax.set_ylabel('Yearly Sales(Millions)', color = 'black')
+ax.tick_params(axis = 'x', rotation = 45)
+ax1=ax.twinx()                       # different y axis same x axis
+ax1.plot(PS1_Sales['Year'], PS1_Sales['Cumulative' ], color ='black' ,  marker = 'o', linewidth = 2 , label = 'Yearly Sales')
+ax1.set_ylabel('Cumulative Sales(Millions)', color = 'black')
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS2_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS2 Sales', header = 1, usecols ='B:E')    #PS2 Quarterly Sales
+PS2_Quarterly_Sales['Period'] =  PS2_Quarterly_Sales['Quarter']   + ' '   +   PS2_Quarterly_Sales['Year'].astype(str)   # Created New Column for Graphing Purposes
+
+fig2,ax3= plt.subplots(figsize = (10,5))
+ax3.bar(PS2_Quarterly_Sales['Period'], PS2_Quarterly_Sales['Quarterly Sales'], color = 'skyblue', label = 'Quarterly Sales')
+ax3.set_ylabel('Quarterly Sales(Millions)', color = 'black')
+ax3.tick_params(axis = 'x', rotation = 45)
+
+ax4=ax3.twinx()                       # different y axis same x axis
+ax4.plot(PS2_Quarterly_Sales['Period'], PS2_Quarterly_Sales['Cumulative Sales' ], color ='black' ,  marker = 'o', linewidth = 2 , label = 'Cumulative Sales')
+ax4.set_ylabel('Cumulative Sales(Millions)', color = 'black')
+
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS3_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS3 Sales', header = 2, usecols ='B:E')    #PS3 Quarterly Sales
+PS3_Quarterly_Sales['Period'] =  PS3_Quarterly_Sales['Quarter']   + ' '   +   PS3_Quarterly_Sales['Year'].astype(str)
+
+fig3,ax5= plt.subplots(figsize = (10,5))
+ax5.bar(PS3_Quarterly_Sales['Period'], PS3_Quarterly_Sales['Quarterly Sales'], color = 'skyblue', label = 'Quarterly Sales')
+ax5.set_ylabel('Quarterly Sales(Millions)', color = 'black')
+ax5.tick_params(axis = 'x', rotation = 45)
+
+ax6=ax5.twinx()                       # different y axis same x axis
+ax6.plot(PS3_Quarterly_Sales['Period'], PS3_Quarterly_Sales['Cumulative Sales' ], color ='black' ,  marker = 'o', linewidth = 2 , label = 'Cumulative Sales')
+ax6.set_ylabel('Cumulative Sales(Millions)', color = 'black')
+
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS4_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS4 Sales', header = 3, usecols ='H:K')   #PS4 Quarterly Sales
+PS4_Quarterly_Sales['Period'] =  PS4_Quarterly_Sales['Quarter']   + ' '   +   PS4_Quarterly_Sales['Year'].astype(str)
+
+fig4,ax7= plt.subplots(figsize = (10,5))
+ax7.bar(PS4_Quarterly_Sales['Period'], PS4_Quarterly_Sales['Quarterly Sales'], color = 'skyblue', label = 'Quarterly Sales')
+ax7.set_ylabel('Quarterly Sales(Millions)', color = 'black')
+ax7.tick_params(axis = 'x', rotation = 45)
+
+ax8=ax7.twinx()                       # different y axis same x axis
+ax8.plot(PS4_Quarterly_Sales['Period'], PS4_Quarterly_Sales['Cumulative Sales' ], color ='black' ,  marker = 'o', linewidth = 2 , label = 'Cumulative Sales')
+ax8.set_ylabel('Cumulative Sales(Millions)', color = 'black')
+
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS5_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS5 Sales', header = 3, usecols ='M:P')    #PS5 Quarterly Sales
+PS5_Quarterly_Sales['Period'] =  PS5_Quarterly_Sales['Quarter']   + ' '   +   PS5_Quarterly_Sales['Year'].astype(str)
+
+fig5,ax9= plt.subplots(figsize = (10,5))
+ax9.bar(PS5_Quarterly_Sales['Period'], PS5_Quarterly_Sales['Quarterly Sales'], color = 'skyblue', label = 'Quarterly Sales')
+ax9.set_ylabel('Quarterly Sales(Millions)', color = 'black')
+ax9.tick_params(axis = 'x', rotation = 45)
+
+ax10=ax9.twinx()                       # different y axis same x axis
+ax10.plot(PS5_Quarterly_Sales['Period'], PS5_Quarterly_Sales['Cumulative' ], color ='black' ,  marker = 'o', linewidth = 2 , label = 'Cumulative Sales')
+ax10.set_ylabel('Cumulative Sales(Millions)', color = 'black')
+
+
