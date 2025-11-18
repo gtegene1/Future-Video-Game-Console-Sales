@@ -1,0 +1,108 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import xgboost as xgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+#Importing Information
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS1_Sales = pd.read_excel(file_location, sheet_name = 'PS1 Sales', header = 2, usecols ='D:F')  #Imported PS1 Sales Yearly, have to use spreadsheet to navigate parse
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS2_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS2 Sales', header = 1, usecols ='B:E')    #PS2 Quarterly Sales
+PS2_Quarterly_Sales['Period'] =  PS2_Quarterly_Sales['Quarter']   + ' '   +   PS2_Quarterly_Sales['Year'].astype(str)   # Created New Column for Graphing Purposes
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS3_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS3 Sales', header = 2, usecols ='B:E')    #PS3 Quarterly Sales
+PS3_Quarterly_Sales['Period'] =  PS3_Quarterly_Sales['Quarter']   + ' '   +   PS3_Quarterly_Sales['Year'].astype(str)
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS4_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS4 Sales', header = 3, usecols ='H:K')   #PS4 Quarterly Sales
+PS4_Quarterly_Sales['Period'] =  PS4_Quarterly_Sales['Quarter']   + ' '   +   PS4_Quarterly_Sales['Year'].astype(str)
+
+file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+PS5_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS5 Sales', header = 3, usecols ='M:P')    #PS5 Quarterly Sales
+PS5_Quarterly_Sales['Period'] =  PS5_Quarterly_Sales['Quarter']   + ' '   +   PS5_Quarterly_Sales['Year'].astype(str)
+
+#Combining all 4 datasets into 1 dataset, easier for XGBOOST
+for df, name in zip(
+    [PS2_Quarterly_Sales, PS3_Quarterly_Sales, PS4_Quarterly_Sales, PS5_Quarterly_Sales],
+    ["PS2", "PS3", "PS4", "PS5"]
+):
+    if "System" not in df.columns:
+        df["System"] = name
+
+#  combining all 4 datasets into 1 dataset, easier for XGBOOST
+combined_Sales = pd.concat([PS2_Quarterly_Sales, PS3_Quarterly_Sales, PS4_Quarterly_Sales, PS5_Quarterly_Sales],ignore_index = True)
+combined_Sales = combined_Sales.sort_values(['System','Year','Quarter'])
+combined_Sales = combined_Sales.drop(['Cumulative Sales','Period','Cumulative'], axis = 1)
+
+combined_Sales
+
+
+
+#Creating Lag Feature
+combined_Sales["Prev_Quarter_Sales"] = combined_Sales.groupby("System")["Quarterly Sales"].shift(1)
+combined_Sales= pd.get_dummies(combined_Sales,columns=["System", "Quarter"], drop_first=True)
+
+X= combined_Sales.drop(["Quarterly Sales"], axis = 1)
+y = combined_Sales['Quarterly Sales']
+
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, shuffle=False )# keep time order
+
+from xgboost import XGBRegressor
+from sklearn.metrics import mean_squared_error
+
+model = XGBRegressor(
+    n_estimators=400,
+    learning_rate=0.05,
+    max_depth=6,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+model.fit(X_train, y_train)
+
+
+y_pred = model.predict(X_test)
+rmse = mean_squared_error(y_test, y_pred, squared=False)
+print(f"RMSE: {rmse:.2f}")
+
+
+import matplotlib.pyplot as plt
+import xgboost as xgb
+
+xgb.plot_importance(model)
+plt.title("Feature Importance - PlayStation Sales")
+plt.show()
+
+
+feature_columns = X_train.columns  # or X.columns if using full data
+ps6_df = ps6_df.reindex(columns=feature_columns, fill_value=0)
+
+
+ps6_input = {
+    "Year": [2027],
+    "Cumulative Sales": [0],
+    "Prev_Quarter_Sales": [0],
+    "System_PS2": [0],
+    "System_PS3": [0],
+    "System_PS4": [0],
+    "System_PS5": [0],
+    "System_PS6": [1],  # mark PS6
+    "Quarter_Q2": [0],
+    "Quarter_Q3": [0],
+    "Quarter_Q4": [0]
+}
+
+import pandas as pd
+ps6_df = pd.DataFrame(ps6_input)
+ps6_df = ps6_df.reindex(columns=feature_columns, fill_value=0)
+predicted_sales = model.predict(ps6_df)
+print("Predicted PS6 Q1 Sales (Millions):", predicted_sales[0])
