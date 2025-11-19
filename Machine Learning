@@ -7,22 +7,22 @@ from sklearn.metrics import mean_squared_error
 
 #Importing Information
 
-file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+file_location = " "  # Reads Excel File
 PS1_Sales = pd.read_excel(file_location, sheet_name = 'PS1 Sales', header = 2, usecols ='D:F')  #Imported PS1 Sales Yearly, have to use spreadsheet to navigate parse
 
-file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+file_location = "C "  # Reads Excel File
 PS2_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS2 Sales', header = 1, usecols ='B:E')    #PS2 Quarterly Sales
 PS2_Quarterly_Sales['Period'] =  PS2_Quarterly_Sales['Quarter']   + ' '   +   PS2_Quarterly_Sales['Year'].astype(str)   # Created New Column for Graphing Purposes
 
-file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+file_location = " "  # Reads Excel File
 PS3_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS3 Sales', header = 2, usecols ='B:E')    #PS3 Quarterly Sales
 PS3_Quarterly_Sales['Period'] =  PS3_Quarterly_Sales['Quarter']   + ' '   +   PS3_Quarterly_Sales['Year'].astype(str)
 
-file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+file_location = " "  # Reads Excel File
 PS4_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS4 Sales', header = 3, usecols ='H:K')   #PS4 Quarterly Sales
 PS4_Quarterly_Sales['Period'] =  PS4_Quarterly_Sales['Quarter']   + ' '   +   PS4_Quarterly_Sales['Year'].astype(str)
 
-file_location = "C:/Users/gyteg/Desktop/DD & Python/Python 2025/Project II/Playstation Console Sales.xlsx "  # Reads Excel File
+file_location = " "  # Reads Excel File
 PS5_Quarterly_Sales = pd.read_excel(file_location, sheet_name = 'PS5 Sales', header = 3, usecols ='M:P')    #PS5 Quarterly Sales
 PS5_Quarterly_Sales['Period'] =  PS5_Quarterly_Sales['Quarter']   + ' '   +   PS5_Quarterly_Sales['Year'].astype(str)
 
